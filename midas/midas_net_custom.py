@@ -58,7 +58,7 @@ class MidasNet_small(BaseModel):
         
         self.scratch.output_conv = nn.Sequential(
             nn.Conv2d(features, features//2, kernel_size=3, stride=1, padding=1, groups=self.groups),
-            Interpolate(scale_factor=2, mode="bilinear"),
+            Interpolate(scale_factor=2, mode="nearest"),
             nn.Conv2d(features//2, 32, kernel_size=3, stride=1, padding=1),
             self.scratch.activation,
             nn.Conv2d(32, 1, kernel_size=1, stride=1, padding=0),
@@ -102,7 +102,8 @@ class MidasNet_small(BaseModel):
         
         out = self.scratch.output_conv(path_1)
 
-        return torch.squeeze(out, dim=1)
+        # return torch.squeeze(out, dim=1)
+        return out
 
 
 

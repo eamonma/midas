@@ -234,7 +234,8 @@ class Interpolate(nn.Module):
         """
 
         x = self.interp(
-            x, scale_factor=self.scale_factor, mode=self.mode, align_corners=self.align_corners
+            x, scale_factor=self.scale_factor, mode=self.mode
+            # , align_corners=self.align_corners
         )
 
         return x
@@ -308,7 +309,7 @@ class FeatureFusionBlock(nn.Module):
         output = self.resConfUnit2(output)
 
         output = nn.functional.interpolate(
-            output, scale_factor=2, mode="bilinear", align_corners=True
+            output, scale_factor=2, mode="nearest", align_corners=True
         )
 
         return output
@@ -430,7 +431,8 @@ class FeatureFusionBlock_custom(nn.Module):
             modifier = {"size": size}
 
         output = nn.functional.interpolate(
-            output, **modifier, mode="bilinear", align_corners=self.align_corners
+            output, **modifier, mode="nearest"
+            # , align_corners=self.align_corners
         )
 
         output = self.out_conv(output)

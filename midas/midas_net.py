@@ -36,7 +36,8 @@ class MidasNet(BaseModel):
 
         self.scratch.output_conv = nn.Sequential(
             nn.Conv2d(features, 128, kernel_size=3, stride=1, padding=1),
-            Interpolate(scale_factor=2, mode="bilinear"),
+            # Interpolate(scale_factor=2, mode="bilinear"),
+            Interpolate(scale_factor=2, mode="nearest"),
             nn.Conv2d(128, 32, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
             nn.Conv2d(32, 1, kernel_size=1, stride=1, padding=0),
